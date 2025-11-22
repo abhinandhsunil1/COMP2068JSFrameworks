@@ -1,54 +1,41 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 
 app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json());
 
-// Temporary in-memory data
-let products = [
-  { id: 1, name: 'Apple', price: 2 },
-  { id: 2, name: 'Milk', price: 4 }
+let projects = [
+  { _id: 1, name: 'Project 1', dueDate: '2025-12-01', course: 'COMP2068' },
+  { _id: 2, name: 'Project 2', dueDate: '2025-12-10', course: 'COMP2068' }
 ];
 
-// GET all products
-app.get('/api/products', (req, res) => {
-  res.json(products);
+app.get('/api/projects', (req, res) => {
+  res.json(projects);
 });
 
-// GET one product
-app.get('/api/products/:id', (req, res) => {
-  const product = products.find(p => p.id == req.params.id);
-  res.json(product || {});
+app.post('/api/projects', (req, res) => {
+  const newProject = { ...req.body, _id: Date.now() };
+  projects.push(newProject);
+  res.status(201).json(newProject);
 });
 
-// POST create product
-app.post('/api/products', (req, res) => {
-  const newId = products.length
-    ? Math.max(...products.map(p => p.id)) + 1
-    : 1;
-
-  const newProduct = { id: newId, ...req.body };
-  products.push(newProduct);
-
-  res.status(201).json(newProduct);
+app.delete('/api/projects/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  projects = projects.filter(p => p._id !== id);
+  res.sendStatus(204);
 });
 
-// PUT update product
-app.put('/api/products/:id', (req, res) => {
-  const id = +req.params.id;
-  products = products.map(p =>
-    p.id === id ? { ...p, ...req.body } : p
-  );
-
-  res.json(products.find(p => p.id === id));
+app.put('/api/projects/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = projects.findIndex(p => p._id === id);
+  if (index !== -1) {
+    projects[index] = { ...projects[index], ...req.body };
+    res.status(202).json(projects[index]);
+  } else {
+    res.sendStatus(400);
+  }
 });
 
-// DELETE product
-app.delete('/api/products/:id', (req, res) => {
-  products = products.filter(p => p.id !== +req.params.id);
-  res.status(204).send();
-});
-
-const PORT = 3001;
-app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
+app.listen(3001, () => console.log('Backend running on port 3001'));
