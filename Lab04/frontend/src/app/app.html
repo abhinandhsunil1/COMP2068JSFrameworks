@@ -1,6 +1,42 @@
-<h1>Products</h1>
-<ul>
-  <li *ngFor="let product of products">
-    {{ product.id }} - {{ product.name }} : ${{ product.price }}
-  </li>
-</ul>
+<div class="container">
+  <h1>Products</h1>
+
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.name }}</td>
+        <td>{{ product.price }}</td>
+        <td>{{ product.description }}</td>
+        <td>
+          <button class="btn btn-info" (click)="selectProduct(product)">Edit</button>
+          <button class="btn btn-danger" (click)="deleteProduct(product._id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>{{ _id ? 'Edit Product' : 'Add Product' }}</h2>
+  <form>
+    <div class="mb-2">
+      <input [(ngModel)]="name" name="name" placeholder="Name" class="form-control"/>
+    </div>
+    <div class="mb-2">
+      <input [(ngModel)]="price" name="price" placeholder="Price" class="form-control"/>
+    </div>
+    <div class="mb-2">
+      <input [(ngModel)]="description" name="description" placeholder="Description" class="form-control"/>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="_id ? updateProduct() : addProduct()">
+      {{ _id ? 'Save' : 'Add' }}
+    </button>
+    <button type="button" class="btn btn-secondary" (click)="clearForm()">Clear</button>
+  </form>
+</div>
