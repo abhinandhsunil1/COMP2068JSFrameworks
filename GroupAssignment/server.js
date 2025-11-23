@@ -5,11 +5,11 @@ const io = require('socket.io')(http);
 const path = require('path');
 
 // Serve static frontend files first
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'Public')));
 
 // Root route - serves index.html
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'Public', 'index.html'));
 });
 
 const port = process.env.PORT || 3000;
