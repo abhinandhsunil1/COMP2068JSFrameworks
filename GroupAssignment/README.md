@@ -39,8 +39,8 @@ Run in Development Mode:
 bash
 npm start
 
-App link:
-http://localhost:3000
+Live App link:
+https://comp2068jsframeworks-3-49kl.onrender.com/
 
 How It Works (Step-by-Step)
 1. Server Setup (server.js)
