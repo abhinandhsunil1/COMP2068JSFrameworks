@@ -1,0 +1,21 @@
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+h1, h2, h3 {
+    font-weight: 600;
+}
+
+.navbar-brand {
+    font-size: 1.8rem;
+}
+
+.btn-success {
+    background-color: #28a745;
+}
+
+.list-group-item a {
+    text-decoration: none;
+    font-weight: 500;
+}

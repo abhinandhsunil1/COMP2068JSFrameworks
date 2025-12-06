@@ -1,0 +1,15 @@
+<div class="container my-5">
+  <h1 class="text-center text-secondary mb-4">Login</h1>
+  {{#if error}}
+  <div class="alert alert-danger">{{error}}</div>
+  {{/if}}
+  <form action="/users/login" method="POST" class="mx-auto" style="max-width: 400px;">
+    <div class="mb-3">
+      <input type="text" class="form-control" name="username" placeholder="Username" required>
+    </div>
+    <div class="mb-3">
+      <input type="password" class="form-control" name="password" placeholder="Password" required>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Login</button>
+  </form>
+</div>
